@@ -54,6 +54,7 @@ print(lr_prediction)
 closing_prices = crypt_data['Close'].values
 
 # Plot the data
+# I have to fix the plot!!!
 plt.plot(closing_prices, color='blue', label='Historical Data')
 plt.plot(lr_prediction, color='red', label='Prediction')
 plt.xlabel('Time')
