@@ -1,7 +1,8 @@
 import yfinance as yf
 import numpy as np
 from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split, RandomizedSearchCV
 import matplotlib.pyplot as plt
 from datetime import date
 
@@ -21,12 +22,8 @@ while True:
             print(f'{coin} not found or no data available')
     else:
         print("Invalid input")
-
         
-
-# Create a new DataFrame with only the 'Close' column
-data = crypt_data[['Close']]
-
+data = crypt_data[['Close', 'Volume', 'High', 'Low']]
 
 # Create a new column that contains the target price
 data['Prediction'] = data[['Close']].shift(-future_price)
@@ -38,28 +35,32 @@ y = np.array(data['Prediction'])[:-future_price]
 # Split the data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-# Train the linear regression model
-lr = LinearRegression().fit(X_train, y_train)
+# Define the model and the parameter grid
+rfr = RandomForestRegressor(random_state=0)
+param_grid = {'n_estimators': [50, 100, 200],
+              'max_depth': [5, 10, 15],
+              'min_samples_split': [2, 4, 8],
+              'min_samples_leaf': [1, 2, 4]}
+
+# Perform randomized search for hyperparameter tuning
+rfr_random = RandomizedSearchCV(estimator=rfr, param_distributions=param_grid, n_iter=100, cv=5, verbose=2, random_state=0)
+rfr_random.fit(X_train, y_train)
 
 # Test the model
-lr_confidence = lr.score(X_test, y_test)
-print("Linear Regression confidence: ", lr_confidence)
+rfr_confidence = rfr_random.score(X_test, y_test)
+print("Random Forest Regression confidence: ", rfr_confidence)
 
 # Use the model to predict the future price
 x_forecast = np.array(data.drop(['Prediction'], 1))[-future_price:]
-lr_prediction = lr.predict(x_forecast)
-print("Predicted Future Price: ", lr_prediction)
-
-print(lr_prediction)
-
-data
+rfr_prediction = rfr_random.predict(x_forecast)
+print("Predicted Future Price: ", rfr_prediction)
 
 start= 1
 end= future_price
 plt.xlim(start, end)
 short_hist = crypt_data['Close'].values
 plt.plot(short_hist[-future_price:], color='blue', label='Historical Data')
-plt.plot(lr_prediction, color='red', label='Prediction')
+plt.plot(rfr_prediction, color='red', label='Prediction')
 plt.xlabel('Time')
 plt.ylabel('Closing Price')
 plt.title('Closing Prices of Cryptocurrency')
