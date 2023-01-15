@@ -23,8 +23,8 @@ while True:
         print("Invalid input")
 
 
-# Create a new DataFrame with only the 'Close' column
-data = crypt_data[['Close']]
+# Create a new DataFrame with only the 'Close' and 'Volume' columns
+data = crypt_data[['Close', 'Volume']]
 
 
 # Create a new column that contains the target price
@@ -51,13 +51,15 @@ print("Predicted Future Price: ", lr_prediction)
 
 print(lr_prediction)
 
-closing_prices = crypt_data['Close'].values
+start= 1
+end= future_price
+plt.xlim(start, end)
+short_hist = crypt_data['Close'].values
 
-# Plot the data
-# I have to fix the plot!!!
-plt.plot(closing_prices, color='blue', label='Historical Data')
+plt.plot(short_hist[-future_price:], color='blue', label='Historical Data')
 plt.plot(lr_prediction, color='red', label='Prediction')
 plt.xlabel('Time')
 plt.ylabel('Closing Price')
 plt.title('Closing Prices of Cryptocurrency')
+plt.legend()
 plt.show()
