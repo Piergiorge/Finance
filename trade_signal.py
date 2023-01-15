@@ -4,6 +4,11 @@ import matplotlib.pyplot as plt
 from datetime import date
 import ta
 
+"""
+The user is prompted to enter the cryptocurrency ticker, the number of days in the future to predict,
+and whether the cryptocurrency is a stock or a cryptocurrency.
+The start date is set to "2015-01-01" and the end date is set to the current date.
+"""
 while True:
     coin = input('Enter the cryptocurrency (Tick): ') # ex : BTC for Bitcoin
     future_price = input('Enter the time (days): ') # ex : 5
@@ -24,6 +29,7 @@ while True:
     else:
         print("Invalid input")
         
+# Indicators
 rsi = ta.momentum.RSIIndicator(crypt_data['Close'], window=14)
 mfi = ta.volume.MFIIndicator(crypt_data['High'], crypt_data['Low'], crypt_data['Close'], crypt_data['Volume'], window=14)
 ema_17 = ta.trend.EMAIndicator(crypt_data['Close'], window= 17)
@@ -31,6 +37,7 @@ ema_55 = ta.trend.EMAIndicator(crypt_data['Close'], window= 55)
 ema_200 = ta.trend.EMAIndicator(crypt_data['Close'], window= 200)
 sma_200 = ta.trend.SMAIndicator(crypt_data['Close'], window= 200)
 
+# Adds the indicators to the dataframe
 crypt_data['ema_17'] = ema_17.ema_indicator()
 crypt_data['ema_55'] = ema_55.ema_indicator()
 crypt_data['ema_200'] = ema_200.ema_indicator()
@@ -38,10 +45,9 @@ crypt_data['sma_200'] = sma_200.sma_indicator()
 crypt_data['mfi'] = mfi.money_flow_index()
 crypt_data['rsi'] = rsi.rsi()
 
-# need to fix
+# Signal - need to fix
 crypt_data['Signal'] = np.where((crypt_data['Close'] > crypt_data['sma_200']) & (crypt_data['ema_17'] > crypt_data['ema_55']), 'Buy',
                                 np.where((crypt_data['Close'] < crypt_data['sma_200']) & (crypt_data['ema_17'] < crypt_data['ema_55']), 'Sell', 'Hold'))
-
 
 # gold and death
 crypt_data['Golden Cross'] = np.where((crypt_data['sma_200'] > crypt_data['Close']) & (crypt_data['ema_17'] > crypt_data['ema_55']), True, False)
