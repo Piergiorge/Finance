@@ -10,10 +10,13 @@ while True:
     coin = input('Enter the cryptocurrency (Tick): ') # ex : BTC for Bitcoin
     future_price = input('Enter the time (days): ') # ex : 5
     current_date = date.today().strftime("%Y-%m-%d")
-    if coin and coin.isalpha() and future_price.isdigit(): 
+    choice = input("Is crypt? [Y]es or N[o]")
+    if coin and coin.isalpha() and future_price.isdigit() and choice:
         coin = coin.upper()
+        coin_search = coin
         future_price = int(future_price)
-        coin_search = f'{coin}-USD'
+        if choice.upper() == 'Y':
+            coin_search = f'{coin}-USD'
         try:
             crypt_data = yf.download(coin_search, start="2015-01-01", end=current_date)
             print(f'Historical data for {coin} from {crypt_data.index[0]} to {crypt_data.index[-1]}')
