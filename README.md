@@ -1,6 +1,6 @@
 # Finance
 
-These codes are not investment tips. These are just starting points for further analysis.
+# These codes are not investment tips. These are just starting points for further analysis.
 
 yfinance_linear_regression.py  - plots the historical data and the predicted future price of a cryptocurrency using Linear Regression
 
