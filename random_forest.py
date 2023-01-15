@@ -55,10 +55,13 @@ x_forecast = np.array(data.drop(['Prediction'], 1))[-future_price:]
 rfr_prediction = rfr_random.predict(x_forecast)
 print("Predicted Future Price: ", rfr_prediction)
 
+# The chart data
 start= 1
 end= future_price
 plt.xlim(start, end)
 short_hist = crypt_data['Close'].values
+
+# plot
 plt.plot(short_hist[-future_price:], color='blue', label='Historical Data')
 plt.plot(rfr_prediction, color='red', label='Prediction')
 plt.xlabel('Time')
