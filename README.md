@@ -1,3 +1,3 @@
 # Finance
 
-yfinance_prediction.py  - plots the historical data and the predicted future price of a cryptocurrency using matplotlib
+yfinance_linear_regression.py  - plots the historical data and the predicted future price of a cryptocurrency using Linear Regression
