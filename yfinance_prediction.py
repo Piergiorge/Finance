@@ -3,16 +3,29 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
+from datetime import date
 
-# Download historical data for Bitcoin
-btc = yf.download("BTC-USD", start="2015-01-01", end="2023-01-13")
+while True:
+    coin = input('Enter the cryptocurrency (Tick): ') # ex : BTC for Bitcoin
+    future_price = input('Enter the time (days): ') # ex : 5
+    current_date = date.today().strftime("%Y-%m-%d")
+    if coin and coin.isalpha() and future_price.isdigit(): 
+        coin = coin.upper()
+        future_price = int(future_price)
+        coin_search = f'{coin}-USD'
+        try:
+            crypt_data = yf.download(coin_search, start="2015-01-01", end=current_date)
+            print(f'Historical data for {coin} from {crypt_data.index[0]} to {crypt_data.index[-1]}')
+            break
+        except ValueError:
+            print(f'{coin} not found or no data available')
+    else:
+        print("Invalid input")
+
 
 # Create a new DataFrame with only the 'Close' column
-data = btc[['Close']]
+data = crypt_data[['Close']]
 
-# Create a variable to store the target column (future price)
-# future_price = 7
-future_price = 14
 
 # Create a new column that contains the target price
 data['Prediction'] = data[['Close']].shift(-future_price)
@@ -38,7 +51,7 @@ print("Predicted Future Price: ", lr_prediction)
 
 print(lr_prediction)
 
-closing_prices = btc['Close'].values
+closing_prices = crypt_data['Close'].values
 
 # Plot the data
 plt.plot(closing_prices, color='blue', label='Historical Data')
