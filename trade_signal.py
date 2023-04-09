@@ -46,9 +46,9 @@ crypt_data['mfi'] = mfi.money_flow_index()
 crypt_data['rsi'] = rsi.rsi()
 
 # Signal - need to fix
-crypt_data['Signal'] = np.where((crypt_data['Close'] > crypt_data['sma_200']) & (crypt_data['ema_17'] > crypt_data['ema_55']), 'Buy',
-                                np.where((crypt_data['Close'] < crypt_data['sma_200']) & (crypt_data['ema_17'] < crypt_data['ema_55']), 'Sell', 'Hold'))
+crypt_data['Signal'] = np.where((crypt_data['Close'] > crypt_data['sma_200']) & (crypt_data['ema_17'] > crypt_data['ema_55']) & ((crypt_data['mfi'] <= 30) & (crypt_data['rsi'] <= 30)), 'Buy',
+                                np.where((crypt_data['Close'] < crypt_data['sma_200']) & (crypt_data['ema_17'] < crypt_data['ema_55']) & ((crypt_data['mfi'] >= 70) & (crypt_data['rsi'] >= 70)), 'Sell', 'Hold'))
 
 # gold and death
-crypt_data['Golden Cross'] = np.where((crypt_data['sma_200'] > crypt_data['Close']) & (crypt_data['ema_17'] > crypt_data['ema_55']), True, False)
-crypt_data['Death Cross'] = np.where((crypt_data['sma_200'] < crypt_data['Close']) & (crypt_data['ema_17'] < crypt_data['ema_55']), True, False)
+crypt_data['Golden Cross'] = np.where((crypt_data['sma_200'] < crypt_data['Close']) & (crypt_data['ema_17'] > crypt_data['ema_55']), True, False)
+crypt_data['Death Cross'] = np.where((crypt_data['sma_200'] > crypt_data['Close']) & (crypt_data['ema_17'] < crypt_data['ema_55']), True, False)
