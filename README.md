@@ -7,10 +7,11 @@ This Python script uses linear regression to predict the future price of a given
 
 To use the script, run it in a Python environment and enter the following information when prompted:
 
-1 - Enter the cryptocurrency (Tick): The ticker symbol of the cryptocurrency you want to predict (e.g. BTC for Bitcoin).
-2 - Enter the time (days): The number of days into the future you want to predict the price for.
-3 - Is crypt? [Y]es or N[o]: Whether the cryptocurrency is listed in USD or another currency.
-4 - The script will then retrieve the historical price data, create a linear regression model, test the model, and make a prediction for the future price. Finally, it will plot the historical prices and the predicted price on a graph.
+* Enter the cryptocurrency (Tick): The ticker symbol of the cryptocurrency you want to predict (e.g. BTC for Bitcoin).
+* Enter the time (days): The number of days into the future you want to predict the price for.
+* Is crypt? [Y]es or N[o]: Whether the cryptocurrency is listed in USD or another currency.
+
+The script will then retrieve the historical price data, create a linear regression model, test the model, and make a prediction for the future price. Finally, it will plot the historical prices and the predicted price on a graph.
 
 Note that this script makes several assumptions about the relationship between the features (closing price and volume) and the target variable (future closing price). In reality, the relationship may be much more complex and affected by other factors that are not included in the model. Therefore, the predictions should be taken with a grain of salt and used for informational purposes only.
 
