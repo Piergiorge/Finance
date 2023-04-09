@@ -2,7 +2,7 @@ These codes are not investment tips. These are just starting points for further 
 
 # yfinance_linear_regression.py  - plots the historical data and the predicted future price of a cryptocurrency using Linear Regression
 
-## Cryptocurrency Price Predictor
+## Cryptocurrency Price Predictor - Linear Regression
 This Python script uses linear regression to predict the future price of a given cryptocurrency.
 
 To use the script, run it in a Python environment and enter the following information when prompted:
@@ -17,7 +17,7 @@ Note that this script makes several assumptions about the relationship between t
 
 # random_forest.py - plots the historical data and the predicted future price of a cryptocurrency using Random Forest Regressor
 
-## Cryptocurrency Price Prediction
+## Cryptocurrency Price Prediction - Random Forest
 This script uses historical data of a cryptocurrency, obtained from Yahoo Finance, to predict its future price using a Random Forest Regression model. The script allows the user to input the cryptocurrency ticker symbol and the number of days into the future they want to predict the price for.
 
 ## Getting Started
@@ -36,7 +36,7 @@ python random_forest.py
 
 # trade_signal.py - Table citing the possibility of buying or selling an asset. The script then calculates and adds several technical indicators to the dataframe:
 
-## Cryptocurrency Prediction Tool
+## Cryptocurrency Price Prediction - Trade Signal
 This is a Python script that prompts the user to enter a cryptocurrency ticker, the number of days in the future to predict, and whether the cryptocurrency is a stock or a cryptocurrency. The start date is set to "`2015-01-01`" and the end date is set to the current date.
 
 The script uses the Yahoo Finance API through the yfinance library to download historical price data for the specified cryptocurrency. It then calculates a number of technical indicators using the ta library, including:
