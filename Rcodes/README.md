@@ -1,0 +1,15 @@
+# trade_R.R
+
+This is a script written in R programming language to obtain the CCI (Commodity Channel Index) indicator for BTC-USD data obtained from Yahoo Finance, plot the candlestick chart along with the CCI indicator, and generate a buy/sell/hold signal based on the CCI value.
+
+The script begins by loading the required libraries- `quantmod` and `lubridate`. It then specifies the start and end dates for which the data is to be fetched.
+The `getSymbols()` function from `quantmod` package is then used to obtain the BTC-USD data from Yahoo Finance for the specified date range.
+The `chartSeries()` function is used to plot the candlestick chart for the obtained data. The `addCCI()` function is used to calculate the CCI indicator and add it to the chart.
+
+The CCI values are then extracted as a dataframe, and any missing values are replaced with 0. A signal is then generated based on the CCI value.
+If the CCI is above 100, a sell signal is generated, if it is below -100, a buy signal is generated, and if it is between -100 and 100, a hold signal is generated.
+
+The `'data'` and `'sinal'` columns are then extracted from the dataframe and converted into an xts object. The `chartSeries()` function is again used to plot the candlestick chart, and the `addTA()` function is used to plot the signal generated based on the CCI values.
+The `addSMA()` function is used to add the Simple Moving Average lines for 9, 50, 100, and 200 periods.
+
+Finally, the script saves the generated chart in the working directory.
